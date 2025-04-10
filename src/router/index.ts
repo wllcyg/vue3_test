@@ -11,15 +11,21 @@ const routes = [
       {
         path: '/home',
         name: 'Home',
+        meta: { title: '首页', icon: 'mdi-home-circle-outline' },
         component: () => import('@/pages/Home.vue')
       },
-      // 其他路由也作为Layout的子路由
-      // 例如:
-      // {
-      //   path: 'about',
-      //   name: 'About',
-      //   component: () => import('../views/About.vue')
-      // }
+      {
+        path: '/about',
+        name: 'About',
+        meta: { title: '关于', icon: 'mdi-information-outline' },
+        component: () => import('@/pages/About.vue')
+      },
+      {
+        path: '/more',
+        name: 'More',
+        meta: { title: '更多', icon: 'mdi-page-next' },
+        component: () => import('@/pages/More.vue')
+      }
     ]
   }
 ]

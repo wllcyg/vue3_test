@@ -1,89 +1,81 @@
 <template>
-  <div class="container">
-     <slide class="sidebar" :class="{ 'slidebar-open': isOpen, 'slidebar-close': !isOpen }">
-         侧边栏
-     </slide>
-     <header class="header">
-          <v-app-bar-nav-icon></v-app-bar-nav-icon>
-     </header>
-    <main class="main">
-      <Suspense>
-        <template #default>
-          <router-view></router-view>
-        </template>
-        <template #fallback>
-          <div class="loading">
-            <p>内容加载中...</p>
-          </div>
-        </template>
-      </Suspense>
-    </main>
+    <v-app class="app">
+        <v-navigation-drawer
+            v-model="isOpen"
+            app
+            :width="drawerWidth"
+            :rail="!isOpen"
+            :rail-width="56"
+            class="sidebar"
+        >
+            <v-img aspect-ratio="16/9" cover height="64" :src="avatar"></v-img>
+            <slide-bar />
+        </v-navigation-drawer>
 
+        <v-app-bar
+            app
+            class="header"
+            color="teal-darken-4"
+            image="https://picsum.photos/1920/1080?random"
+        >
+            <template v-slot:image>
+                <v-img
+                    gradient="to top right, rgba(19,84,122,.8), rgba(128,208,199,.8)"
+                ></v-img>
+            </template>
+            <template v-slot:prepend>
+                <v-app-bar-nav-icon @click="toggleSidebar"></v-app-bar-nav-icon>
+            </template>
+            <v-app-bar-title>luckys</v-app-bar-title>
+            <v-btn icon>
+                <v-icon>mdi-github</v-icon>
+            </v-btn>
+            <v-btn icon>
+                <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+        </v-app-bar>
 
-  </div>
+        <v-main class="main">
+            <v-container fluid>
+                <Suspense>
+                    <template #default>
+                        <router-view></router-view>
+                    </template>
+                    <template #fallback>
+                        <v-sheet
+                            class="d-flex align-center justify-center"
+                            height="300"
+                        >
+                            <v-progress-circular
+                                indeterminate
+                                color="primary"
+                                class="mr-3"
+                            ></v-progress-circular>
+                            <span>内容加载中...</span>
+                        </v-sheet>
+                    </template>
+                </Suspense>
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-const isOpen = ref(false)
+import { ref, computed } from "vue";
+import avatar from "@/assets/material.jpg";
+import SlideBar from "@/layout/SlideBar.vue";
+const isOpen = ref(true);
+const drawerWidth = 240;
+
 function toggleSidebar() {
-  isOpen.value = !isOpen.value;
-  console.log('Sidebar toggled', isOpen.value);
+    isOpen.value = !isOpen.value;
+    console.log("Sidebar toggled", isOpen.value);
 }
 </script>
 
 <style scoped lang="scss">
-.container {
-    display: grid;
-    grid-template-columns:auto  1fr 1fr;
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas: "sidebar header header"
-                         "sidebar main main"
-                         "sidebar main main";
-    min-height: 100vh;
-    .sidebar{
-        grid-area: sidebar;
-        background: #f0f0f0;
-        padding: 1rem;
-        min-width: var(--sidebar-close);
-        white-space: nowrap;
-        transition: all 0.3s ease;
-    }
-    .slidebar-open{
-        width: var(--sidebar-open);
-    }
-    .slidebar-close{
-        width: var(--sidebar-close);
-    }
-    .header {
-        grid-area: header;
-        background: #e3f2fd;
-        padding: 1rem;
-        height: 60px;
-    }
-    .main {
-        grid-area: main;
-        padding: 1rem;
-        min-height: 300px;
-    }
-}
-@media (max-width: 768px) {
-  .container {
-    grid-template-columns: au;
-    grid-template-areas:
-      "header"
-      "main"
-  }
-
-  .sidebar {
-    white-space: normal; /* 恢复文字换行 */
-  }
-  .slide-open{
-    width: 100% !important;
-  }
-  .slide-close{
-    width: 0 !important;
-  }
+.app,.sidebar {
+    background-color: var(--background-color);
 }
 
 
