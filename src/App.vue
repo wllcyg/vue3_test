@@ -1,13 +1,5 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
     <div>
-        tet
+        <router-view />
     </div>
 </template>
-
-<style scoped>
-
-</style>
