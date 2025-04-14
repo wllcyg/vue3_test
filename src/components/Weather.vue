@@ -32,100 +32,63 @@
       </v-col>
     </v-row>
 
-    <!-- 天气卡片 -->
-    <v-row class="mt-6">
-      <v-col
-          v-for="(day, index) in weatherData"
-          :key="index"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-          xl="3"
+    <!--    轮播卡片-->
+    <v-sheet class="mt-12">
+      <v-slide-group
+          show-arrows
+
       >
-        <v-card
-            class="mx-auto"
-            max-width="400"
-            hover
-            :elevation="3"
+        <v-slide-group-item
+            v-for="(day, index) in weatherData"
+            :key="index"
+            v-slot="{ isSelected, toggle }"
+
         >
-          <v-card-item class="pb-0">
-            <v-card-title class="text-center">
-              {{ formatDate(day.date) }} {{ day.week }}
-            </v-card-title>
-          </v-card-item>
+          <v-card
+              class="ma-4"
+              width="400"
+              hover
+              :elevation="3"
 
-          <v-card-text class="text-center py-2">
-            <v-icon size="x-large" :color="getWeatherIconColor(day.type)" class="mb-2">
-              {{ getWeatherIcon(day.type) }}
-            </v-icon>
-            <div class="text-h5 font-weight-bold mb-1">
-              <span class="text-red">{{ day.high }}</span> /
-              <span class="text-blue">{{ day.low }}</span>
-            </div>
-            <div class="text-subtitle-1 mb-2">{{ day.type }}</div>
-            <v-chip
-                size="small"
-                :color="getWindLevelColor(day.fengli)"
-                class="mr-2"
-            >
-              {{ day.fengxiang }} {{ day.fengli }}
-            </v-chip>
-            <div class="text-caption mt-2">
-              夜间: {{ day.night.fengxiang }} {{ day.night.fengli }}
-            </div>
-          </v-card-text>
+          >
+            <v-card-item class="pb-0">
+              <v-card-title class="text-center">
+                {{ formatDate(day.date) }} {{ day.week }}
+              </v-card-title>
+            </v-card-item>
 
-          <v-divider></v-divider>
+            <v-card-text class="text-center py-2">
+              <v-icon size="x-large" :color="getWeatherIconColor(day.type)" class="mb-2">
+                {{ getWeatherIcon(day.type) }}
+              </v-icon>
+              <div class="text-h5 font-weight-bold mb-1">
+                <span class="text-red">{{ day.high }}</span> /
+                <span class="text-blue">{{ day.low }}</span>
+              </div>
+              <div class="text-subtitle-1 mb-2">{{ day.type }}</div>
+              <v-chip
+                  size="small"
+                  :color="getWindLevelColor(day.fengli)"
+                  class="mr-2"
+              >
+                {{ day.fengxiang }} {{ day.fengli }}
+              </v-chip>
+              <div class="text-caption mt-2">
+                夜间: {{ day.night.fengxiang }} {{ day.night.fengli }}
+              </div>
+            </v-card-text>
 
-          <v-card-actions>
-            <v-btn variant="text" color="primary" size="small">详情</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn variant="text" color="primary" size="small">分享</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+            <v-divider></v-divider>
 
-    <!-- 空气质量卡片 -->
-    <v-row class="mt-6">
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="text-h5 text-center">
-            今日空气质量
-          </v-card-title>
-
-          <v-card-text>
-            <v-row align="center" justify="center" class="mb-4">
-              <v-col cols="12" sm="4" class="text-center">
-                <v-sheet
-                    class="pa-4 rounded-circle d-inline-block"
-                    :color="getAqiColor(airData.aqi)"
-                    min-width="120"
-                    min-height="120"
-                >
-                  <div class="text-h4 font-weight-bold text-white">{{ airData.aqi }}</div>
-                  <div class="text-subtitle-2 text-white">{{ airData.aqi_name }}</div>
-                </v-sheet>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col cols="6" sm="4" md="2" v-for="(item, index) in airItems" :key="index">
-                <v-card
-                    flat
-                    class="text-center pa-2"
-                    :color="getAirItemColor(item.value, item.threshold)"
-                >
-                  <div class="text-h6 font-weight-bold">{{ item.value }}</div>
-                  <div class="text-caption">{{ item.label }}</div>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+            <v-card-actions>
+              <v-btn variant="text" color="primary" size="small">详情</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn variant="text" color="primary" size="small">分享</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-slide-group-item>
+      </v-slide-group>
+    </v-sheet>
   </div>
 </template>
 
@@ -346,51 +309,95 @@ const initAirQualityChart = () => {
 
   const option = {
     title: {
-      text: '空气质量详情',
+      text: '当前空气质量详情',
       left: 'center'
     },
     tooltip: {
-      trigger: 'item'
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
     },
-    radar: {
-      indicator: [
-        {name: 'PM2.5', max: 150},
-        {name: 'PM10', max: 300},
-        {name: 'O₃', max: 160},
-        {name: 'NO₂', max: 100},
-        {name: 'SO₂', max: 50},
-        {name: 'CO', max: 4}
-      ],
-      radius: '65%'
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: ['PM2.5', 'PM10', 'O₃', 'NO₂', 'SO₂', 'CO'],
+      axisLabel: {
+        interval: 0,
+        rotate: 0
+      }
+    },
+    yAxis: {
+      type: 'value',
+      name: '浓度值',
+      splitLine: {
+        lineStyle: {
+          type: 'dashed'
+        }
+      }
     },
     series: [
       {
-        name: '空气质量指标',
-        type: 'radar',
+        name: '当前值',
+        type: 'bar',
+        barWidth: '40%',
         data: [
           {
-            value: [
-              airData.value.pm2_5,
-              airData.value.pm10,
-              airData.value.o3,
-              airData.value.no2,
-              airData.value.so2,
-              parseFloat(airData.value.co) * 100  // 将CO值放大以便在图上显示
-            ],
-            name: '当前值',
-            areaStyle: {
-              color: 'rgba(73, 177, 245, 0.6)'
-            },
-            lineStyle: {
-              color: '#49B1F5'
-            }
+            value: airData.value.pm2_5,
+            itemStyle: { color: '#49B1F5' }
+          },
+          {
+            value: airData.value.pm10,
+            itemStyle: { color: '#49B1F5' }
+          },
+          {
+            value: airData.value.o3,
+            itemStyle: { color: '#49B1F5' }
+          },
+          {
+            value: airData.value.no2,
+            itemStyle: { color: '#49B1F5' }
+          },
+          {
+            value: airData.value.so2,
+            itemStyle: { color: '#49B1F5' }
+          },
+          {
+            value: parseFloat(airData.value.co) * 100, // 将CO值放大以便在图上显示
+            itemStyle: { color: '#49B1F5' }
           }
-        ]
+        ],
+        label: {
+          show: true,
+          position: 'top',
+          formatter: '{c}'
+        }
       }
-    ]
+    ],
+    // 添加参考线，显示各指标的国标限值
+    markLine: {
+      data: [
+        { yAxis: 75, name: 'PM2.5标准', lineStyle: { color: '#FF4500' } },
+        { yAxis: 150, name: 'PM10标准', lineStyle: { color: '#FF4500' } },
+        { yAxis: 100, name: 'O₃标准', lineStyle: { color: '#FF4500' } },
+        { yAxis: 40, name: 'NO₂标准', lineStyle: { color: '#FF4500' } },
+        { yAxis: 20, name: 'SO₂标准', lineStyle: { color: '#FF4500' } },
+        { yAxis: 200, name: 'CO标准', lineStyle: { color: '#FF4500' } } // CO值已放大100倍
+      ]
+    }
   };
 
   airQualityChart.setOption(option);
+
+  // 添加响应式处理
+  window.addEventListener('resize', () => {
+    airQualityChart.resize();
+  });
 };
 
 // 监听屏幕尺寸变化，调整图表大小

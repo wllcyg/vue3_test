@@ -15,6 +15,12 @@ const routes = [
         component: () => import('@/pages/Home.vue')
       },
       {
+        path: '/audio',
+        name: 'Audio',
+        meta: { title: '音频', icon: 'mdi-music-circle-outline' },
+        component: () => import('@/pages/AudioChart.vue')
+      },
+      {
         path: '/about',
         name: 'About',
         meta: { title: '关于', icon: 'mdi-information-outline' },

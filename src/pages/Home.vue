@@ -48,7 +48,7 @@
 <script lang="ts" setup>
 import Weather from '@/components/Weather.vue';
 import { cardData, commonCardProps } from '@/data/index.ts'
-import {ref, watchEffect} from "vue";
+import {ref, watchEffect,} from "vue";
 import {useGeolocation} from "@vueuse/core";
 import { useAppStore } from '@/store/index.ts'
 const store = useAppStore()
@@ -62,18 +62,18 @@ const getCityName = (lnglat:[number,number]) =>{
     geocoder.getAddress(lnglat, function (status:any, result:any) {
       if (status === "complete" && result.info === "OK") {
         // result为对应的地理位置详细信息
-        cityName.value = result.regeocode.city || '郑州市';
+        cityName.value = result.regeocode.addressComponent.city || '郑州市';
         store.setCity(cityName.value);
       }
     });
   });
 }
-
 watchEffect(() => {
   if (coords.value) {
     getCityName([coords.value.longitude,coords.value.latitude])
   }
 })
+
 </script>
 
 <style scoped lang="scss">
