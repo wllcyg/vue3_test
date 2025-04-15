@@ -20,6 +20,13 @@ const routes = [
         meta: { title: '音频', icon: 'mdi-music-circle-outline' },
         component: () => import('@/pages/AudioChart.vue')
       },
+      // 关于promise
+      {
+        path: '/promise',
+        name: 'Promise',
+        meta: { title: 'Promise', icon: 'mdi-code-json' },
+        component: () => import('@/pages/Promise.vue')
+      },
       {
         path: '/about',
         name: 'About',
