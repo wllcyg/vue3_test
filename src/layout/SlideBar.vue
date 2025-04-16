@@ -15,10 +15,16 @@ import { ref,onMounted } from 'vue'
 const router = useRouter();
 const route = useRoute();
 const routes = router.getRoutes();
-const menu = routes.filter(route => route.path !== '/').map(route => ({
+const menu = routes
+  .filter(route => {
+    return route.path !== '/' &&
+           route.name !== 'NotFound' &&
+           !route.path.includes(':pathMatch');
+  })
+  .map(route => ({
     path: route.path,
     meta: route.meta
-}));
+  }));
 
 const activePath = ref(null);
 onMounted(() => {

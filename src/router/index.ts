@@ -20,12 +20,12 @@ const routes = [
         meta: { title: '音频', icon: 'mdi-music-circle-outline' },
         component: () => import('@/pages/AudioChart.vue')
       },
-      // 关于promise
+
       {
-        path: '/promise',
-        name: 'Promise',
-        meta: { title: 'Promise', icon: 'mdi-code-json' },
-        component: () => import('@/pages/Promise.vue')
+        path: '/code',
+        name: 'code',
+        meta: { title: 'code', icon: 'mdi-code-json' },
+        component: () => import('@/pages/Code.vue')
       },
       {
         path: '/about',
@@ -40,6 +40,12 @@ const routes = [
         component: () => import('@/pages/More.vue')
       }
     ]
+  },
+  {
+      path:'/:pathMatch(.*)*',
+      name:'NotFound',
+      meta: { title: '404', icon: 'mdi-alert-circle-outline' },
+      component: () => import('@/pages/NotFound.vue')
   }
 ]
 
