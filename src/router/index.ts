@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 // 引入Layout组件
 import Layout from '@/layout/index.vue'
 
@@ -27,6 +27,13 @@ const routes = [
         meta: { title: 'code', icon: 'mdi-code-json' },
         component: () => import('@/pages/Code.vue')
       },
+      // 示例
+      {
+        path: '/example',
+        name: 'Example',
+        meta: { title: '示例', icon: 'mdi-code-json' },
+        component: () => import('@/pages/Example.vue')
+      },
       {
         path: '/about',
         name: 'About',
@@ -38,8 +45,15 @@ const routes = [
         name: 'More',
         meta: { title: '更多', icon: 'mdi-page-next' },
         component: () => import('@/pages/More.vue')
-      }
+      },
+
     ]
+  },
+  {
+      path: '/welcome',
+      name: 'Welcome',
+      meta: { title: '欢迎'},
+      component: () => import('@/pages/Welcome.vue')
   },
   {
       path:'/:pathMatch(.*)*',
@@ -50,7 +64,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
 
