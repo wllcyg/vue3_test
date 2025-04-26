@@ -15,12 +15,14 @@
         </div>
         <CardRoute />
         <ImageClip />
+        <ImageColor />
     </div>
 </template>
 
 <script setup lang="ts">
 import CardRoute from "@/components/CardRoute.vue";
 import ImageClip from "@/components/ImageClip.vue";
+import ImageColor from "@/components/ImageColor.vue";
 </script>
 
 <style scoped lang="scss">
