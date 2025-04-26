@@ -1,5 +1,9 @@
 :root {
-  --sidebar-open: 200px;
-  --sidebar-close: 100px;
-  --background-color: #f5f5f5;
+    --sidebar-open: 200px;
+    --sidebar-close: 100px;
+    --background-color: #f5f5f5;
+}
+
+.title {
+    margin: 2em 0;
 }
