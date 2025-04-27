@@ -107,7 +107,6 @@
           </v-card>
         </v-col>
       </v-row>
-
       <!-- 行程规划 -->
       <v-row>
         <v-col cols="12">
@@ -373,6 +372,12 @@
 <script setup>
 import { ref, onMounted, watch } from "vue";
 import { loadAMap } from "@/utils/mapLoader";
+import stepImg1 from "@/assets/address/99-800x600.jpg";
+import stepImg2 from "@/assets/address/672-800x600.jpg";
+import stepImg3 from "@/assets/address/675-800x600.jpg";
+import stepImg4 from "@/assets/address/774-800x600.jpg";
+import stepImg5 from "@/assets/address/827-800x600.jpg";
+import stepImg6 from "@/assets/address/970-800x600.jpg";
 
 // 组件挂载时初始化地图
 onMounted(() => {
@@ -542,7 +547,7 @@ const day1Spots = ref([
     name: "刘公岛",
     description:
       "刘公岛是甲午战争的历史见证地，岛上保存着大量的历史遗迹，包括甲午战争博物馆、刘公岛炮台等，是了解中国近代史的重要场所。",
-    image: "https://picsum.photos/800/600?random=10",
+    image:stepImg1,
     duration: "3-4小时",
     location: "威海市环翠区刘公岛",
     tags: ["历史", "海岛", "博物馆"],
@@ -552,7 +557,7 @@ const day1Spots = ref([
     name: "威海国际海水浴场",
     description:
       "威海国际海水浴场是威海最著名的海滩之一，沙质细腻，海水清澈，是夏季游泳、沙滩娱乐的理想去处。",
-    image: "https://picsum.photos/800/600?random=11",
+    image: stepImg2,
     duration: "2-3小时",
     location: "威海市环翠区海滨路",
     tags: ["海滩", "休闲", "游泳"],
@@ -562,7 +567,7 @@ const day1Spots = ref([
     name: "威海海洋公园",
     description:
       "威海海洋公园是一个集海洋生物展示、科普教育和娱乐为一体的主题公园，可以近距离观赏各种海洋生物。",
-    image: "https://picsum.photos/800/600?random=12",
+    image: stepImg3,
     duration: "2-3小时",
     location: "威海市环翠区海滨北路",
     tags: ["海洋", "科普", "家庭"],
@@ -631,7 +636,7 @@ const initMap = async () => {
     });
 
     // 添加地图控件 - 使用插件管理器加载控件
-    AMap.plugin(["AMap.ToolBar", "AMap.Scale",'AMap.Driving'], () => {
+    AMap.plugin(["AMap.ToolBar", "AMap.Scale",'AMap.Driving','AMap.PlaceSearch'], () => {
       // 添加工具条控件
       map.addControl(
         new AMap.ToolBar({
@@ -651,9 +656,10 @@ const initMap = async () => {
       } else {
         console.error("AMap.Driving 插件未加载成功");
       }
-      // 默认显示第一天路线
       showRoute(1);
+
     });
+    // 替换坐标图片
 
 
 

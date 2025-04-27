@@ -48,30 +48,27 @@
 <script lang="ts" setup>
 import Weather from '@/components/Weather.vue';
 import { cardData, commonCardProps } from '@/data/index.ts'
-import {ref, watchEffect,} from "vue";
-import {useGeolocation} from "@vueuse/core";
+import {ref,onMounted} from "vue";
 import { useAppStore } from '@/store/index.ts'
 const store = useAppStore()
-const { coords } = useGeolocation(
-    {immediate:true,enableHighAccuracy:true}
-)
+
 const cityName = ref('郑州市')
-const getCityName = (lnglat:[number,number]) =>{
-  AMap.plugin("AMap.Geocoder", function () {
-    const geocoder = new AMap.Geocoder();
-    geocoder.getAddress(lnglat, function (status:any, result:any) {
-      if (status === "complete" && result.info === "OK") {
-        // result为对应的地理位置详细信息
-        cityName.value = result.regeocode.addressComponent.city || '郑州市';
+const getCityName = () =>{
+    console.log('test')
+  AMap.plugin("AMap.CitySearch", function () {
+    const citySearch = new AMap.CitySearch();
+    citySearch.getLocalCity(function(status:any, result:any){
+        console.log(status,result,'testt');
+      if (status === 'complete' && result.info === 'OK') {
+        cityName.value = result.city;
         store.setCity(cityName.value);
       }
     });
   });
 }
-watchEffect(() => {
-  if (coords.value) {
-    getCityName([coords.value.longitude,coords.value.latitude])
-  }
+
+onMounted(()=>{
+    getCityName()
 })
 
 </script>
