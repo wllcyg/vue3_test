@@ -46,20 +46,26 @@ const routes = [
         meta: { title: '更多', icon: 'mdi-page-next' },
         component: () => import('@/pages/More.vue')
       },
+      {
+        path: '/kmtravel',
+        name: 'KmTravel',
+        meta: { title: '威海旅游', icon: 'mdi-map-marker-path' },
+        component: () => import('@/pages/KmTravel.vue')
+      },
 
     ]
   },
   {
-      path: '/welcome',
-      name: 'Welcome',
-      meta: { title: '欢迎'},
-      component: () => import('@/pages/Welcome.vue')
+    path: '/welcome',
+    name: 'Welcome',
+    meta: { title: '欢迎' },
+    component: () => import('@/pages/Welcome.vue')
   },
   {
-      path:'/:pathMatch(.*)*',
-      name:'NotFound',
-      meta: { title: '404', icon: 'mdi-alert-circle-outline' },
-      component: () => import('@/pages/NotFound.vue')
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    meta: { title: '404', icon: 'mdi-alert-circle-outline' },
+    component: () => import('@/pages/NotFound.vue')
   }
 ]
 
