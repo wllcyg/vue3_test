@@ -70,7 +70,15 @@ const initAnimate = () => {
   // 完全按照原始逻辑设置动画
   boxRefs.forEach((ref, index) => {
     const duration = index === 0 ? 2 : 1;
-    timeLine.to(ref, { x: wrapperWidth.value, xPercent: -100, duration });
+    let position;
+    if (index === 0) {
+      position = 1; // 第一个元素从0开始
+    } else if (index === 1) {
+      position = "<"; // 第二个元素与前一个同时开始
+    } else {
+      position = "+=1"; // 第三个元素在前一个结束后1秒开始
+    }
+    timeLine.to(ref, { x: wrapperWidth.value, xPercent: -100, duration,  }, position);
   });
 
   gsap.to('.timelineUI-tween', { opacity: 1 });

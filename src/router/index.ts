@@ -59,7 +59,13 @@ const routes = [
         meta: { title: '动画', icon: 'mdi-animation' },
         component: () => import('@/pages/Animation.vue')
       },
-
+      // 动画插件
+      {
+        path: '/animation-plugins',
+        name: 'AnimationPlugins',
+        meta: { title: '动画插件', icon: 'mdi-animation' },
+        component: () => import('@/pages/AnimationPlugins.vue')
+      },
     ]
   },
   {
