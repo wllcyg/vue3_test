@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
     --sidebar-open: 200px;
     --sidebar-close: 100px;
@@ -5,5 +8,5 @@
 }
 
 .title {
-    margin: 2em 0;
+    margin: 1em 0;
 }

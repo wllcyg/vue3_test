@@ -52,6 +52,13 @@ const routes = [
         meta: { title: '威海旅游', icon: 'mdi-map-marker-path' },
         component: () => import('@/pages/KmTravel.vue')
       },
+      // 动画
+      {
+        path: '/animation',
+        name: 'Animation',
+        meta: { title: '动画', icon: 'mdi-animation' },
+        component: () => import('@/pages/Animation.vue')
+      },
 
     ]
   },

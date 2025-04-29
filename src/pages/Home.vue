@@ -42,10 +42,12 @@
       </div>
 
       <Weather :city-name="cityName"/>
+
   </div>
 </template>
 
 <script lang="ts" setup>
+import "@amap/amap-jsapi-types";
 import Weather from '@/components/Weather.vue';
 import { cardData, commonCardProps } from '@/data/index.ts'
 import {ref,onMounted} from "vue";
@@ -56,7 +58,7 @@ const cityName = ref('郑州市')
 const getCityName = () =>{
     console.log('test')
   AMap.plugin("AMap.CitySearch", function () {
-    const citySearch = new AMap.CitySearch();
+    const citySearch = new (AMap as any).CitySearch();
     citySearch.getLocalCity(function(status:any, result:any){
         console.log(status,result,'testt');
       if (status === 'complete' && result.info === 'OK') {
