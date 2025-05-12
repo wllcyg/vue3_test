@@ -66,6 +66,13 @@ const routes = [
         meta: { title: '动画插件', icon: 'mdi-animation' },
         component: () => import('@/pages/AnimationPlugins.vue')
       },
+      // ScrollTrigger
+      {
+        path: '/scroll-trigger',
+        name: 'ScrollTrigger',
+        meta: { title: 'ScrollTrigger', icon: 'mdi-animation' },
+        component: () => import('@/pages/ScrollTrigger.vue')
+      },
     ]
   },
   {
